@@ -9,7 +9,9 @@ struct process
     float BT;
     float WT;
     float priority;
+    int status;
 };
+
 int main()
 {
     printf("\n ************************* SHORTEST JOB SCHEDULING ALLGORITHM PROJECT ***********************************");
@@ -25,6 +27,7 @@ int main()
         printf("\n enter the burst time for the %d process  :  ",i+1);
         scanf("%f",&proc[i].BT);
         proc[i].pid=i+1;
+        proc[i].status=0;
     }
 
     printf("\n enter the arival time of the processes \n");
@@ -44,9 +47,47 @@ int main()
     {
         proc[i].WT=0;
     }
-    
+
+    int max_at=0;
+    for(int i=0;i<number;i++)
+    {
+        if((int)proc[i].AT>max_at)
+        {
+            max_at=(int)proc[i].AT;
+        }
+    }    
+ 
+ //   printf("\n max is %d ",max);
+
     int timer=0;
+   int j=0;
+   int seq[number];
+
+    for (timer=0;timer<=max_at;timer++)
+    {
+        for(int i=0;i<number;i++)
+        {
+            if(timer>=(int)proc[i].AT)
+            {
+                if(proc[i].status==0)
+                {
+                    seq[j++]=proc[i].pid;
+                    proc[i].status=1;
+                }
+            }
+        }
+    }
+    printf("\n\n\n");
+/*    for(int i=0;i<number;i++)
+    {
+        printf("    %d     ",seq[i]);
+    }
+*/
+    int final_sequence[number];
+    final_sequence[0]=seq[0];
     
+
+
 
 
 
