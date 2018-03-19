@@ -10,6 +10,10 @@ struct process
     float WT;
     float priority;
     int status;
+   
+    // status 0 : not available
+    // status 1 : ready state
+    // ststus 2 : processed
 };
 
 int main()
@@ -37,7 +41,9 @@ int main()
         scanf("%f",&proc[i].AT);
     }
 
-        printf("\n Process:     |   Burst Time:     |   Arival Time:     | ");
+   // system("cls");
+     
+    printf("\n Process:     |   Burst Time:     |   Arival Time:     | ");
     for(int i=0;i<number;i++)
     {
         printf("\n   %d               %d                   %d      ",proc[i].pid,(int )proc[i].BT,(int )proc[i].AT);
@@ -59,7 +65,7 @@ int main()
  
  //   printf("\n max is %d ",max);
 
-    int timer=0;
+   int timer=0;
    int j=0;
    int seq[number];
 
@@ -78,13 +84,113 @@ int main()
         }
     }
     printf("\n\n\n");
+
 /*    for(int i=0;i<number;i++)
     {
         printf("    %d     ",seq[i]);
     }
+    printf("\n\n");
 */
+
     int final_sequence[number];
     final_sequence[0]=seq[0];
+    int n;
+    n=number;
+    int order[n][n];
+ 
+//    order[0][]=seq;
+    for(int i=0;i<n;i++)
+    {
+        order[0][i]=seq[i];
+    }
+
+/*    for(int i=0;i<number;i++)
+    {
+        printf("    %d     ",order[0][i]);
+    }
+*/
+int next_index;
+float min=9999.00;
+timer=0;
+timer=proc[order[0][0]].AT;
+int i=0;
+//    while(n--)
+//    {
+        final_sequence[i]=order[i][0];
+           proc[i].status=2;
+           timer=timer+proc[i].BT;
+           for(int j=0;j<number;j++);
+           {
+                if(proc[j].status==1)
+                {
+                    proc[j].WT=proc[j].WT+proc[i].BT - proc[j].AT;
+                }
+           }
+
+           i++;
+           for(int k=0;k<number;k++)
+           {
+               if(proc[k].status==1)
+               {
+                   proc[k].priority=1+ (proc[k].WT) / (proc[k].BT) ;
+               }
+            }
+
+printf("printing the waiting of all \n \n");
+for(int j=0;j<number;j++)
+{
+    printf("  %d  ",proc[j].WT);
+}
+
+printf("printing the priority of all \n \n");
+for(int j=0;j<number;j++)
+{
+    printf("  %f  ",proc[j].priority);
+}
+
+            for(int l=0;l<number;l++)
+            {
+                   if( (timer > proc[l].AT) && ( proc[l].status==1 ) )
+                   {
+                        if(min > proc[l].priority)
+                        {
+                            min=proc[l].priority;
+                            next_index=l;
+                        }
+                   }
+            }
+            int z=1;
+            for(int j=0;j<number;j++)
+            {
+                if(j==0)
+                {
+                    order[i][0]=next_index+1;
+                }
+                else
+                {
+                    if(proc[j].status==1)
+                    {
+                           order[i][z]=proc[j].pid; 
+                           z++; 
+                    }
+                }
+            }
+
+ /*           printf("printing the value of the two d array \n \n");
+
+            for(int j=0;j<number;j++)
+            {
+                for(int k=0;k<number;k++)
+                {
+                    printf("   %d   ",order[j][k]);
+                }
+                printf("\n");
+            }
+   */        
+    }
+
+
+    
     
 
 
@@ -92,4 +198,5 @@ int main()
 
 
 
-}
+
+//}
