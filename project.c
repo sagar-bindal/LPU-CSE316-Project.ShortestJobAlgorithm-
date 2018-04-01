@@ -16,6 +16,12 @@ struct process
     // ststus 2 : processed
 };
 
+/*struct queue
+{
+    int pid;
+    struct queue *link;
+};*/
+
 int main()
 {
     printf("\n ************************* SHORTEST JOB SCHEDULING ALLGORITHM PROJECT ***********************************");
@@ -78,19 +84,19 @@ int main()
                 if(proc[i].status==0)
                 {
                     seq[j++]=proc[i].pid;
-                    proc[i].status=1;
+//                    proc[i].status=1;
                 }
             }
         }
     }
     printf("\n\n\n");
 
-/*    for(int i=0;i<number;i++)
+    for(int i=0;i<number;i++)
     {
         printf("    %d     ",seq[i]);
     }
     printf("\n\n");
-*/
+
 
     int final_sequence[number];
     final_sequence[0]=seq[0];
@@ -104,18 +110,18 @@ int main()
         order[0][i]=seq[i];
     }
 
-/*    for(int i=0;i<number;i++)
+    for(int i=0;i<number;i++)
     {
         printf("    %d     ",order[0][i]);
     }
-*/
+
 int next_index;
 float min=9999.00;
 timer=0;
 timer=proc[order[0][0]].AT;
 int i=0;
-//    while(n--)
-//    {
+    while(n--)
+    {
         final_sequence[i]=order[i][0];
            proc[i].status=2;
            timer=timer+proc[i].BT;
@@ -123,11 +129,19 @@ int i=0;
            {
                 if(proc[j].status==1)
                 {
-                    proc[j].WT=proc[j].WT+proc[i].BT - proc[j].AT;
+                    if(proc[j].WT==0)
+                    {
+                         proc[j].WT=proc[i].BT - proc[j].AT;     
+                    }
+                    else
+                    {
+                    proc[j].WT=proc[j].WT+proc[i].BT;
+                    }
                 }
            }
 
            i++;
+
            for(int k=0;k<number;k++)
            {
                if(proc[k].status==1)
@@ -136,17 +150,17 @@ int i=0;
                }
             }
 
-printf("printing the waiting of all \n \n");
+/*printf("printing the waiting of all \n \n");
 for(int j=0;j<number;j++)
 {
-    printf("  %d  ",proc[j].WT);
+    printf("  %f  ",proc[j].WT);
 }
 
 printf("printing the priority of all \n \n");
 for(int j=0;j<number;j++)
 {
     printf("  %f  ",proc[j].priority);
-}
+}*/
 
             for(int l=0;l<number;l++)
             {
@@ -176,7 +190,7 @@ for(int j=0;j<number;j++)
                 }
             }
 
- /*           printf("printing the value of the two d array \n \n");
+    /*        printf("printing the value of the two d array \n \n");
 
             for(int j=0;j<number;j++)
             {
@@ -185,18 +199,34 @@ for(int j=0;j<number;j++)
                     printf("   %d   ",order[j][k]);
                 }
                 printf("\n");
-            }
-   */        
+            }*/
+           
+    }
+
+/*queue
+timer=0;
+while(timer < = max_at)
+{
+
+}
+  */  
+    
+    int total_wt=0;
+    for(int i=0;i<number;i++)
+    {
+        total_wt=total_wt+proc[i].WT;
+    }
+
+    int total_at=0;
+    for(int i=0;i<number;i++)
+    {
+        total_at=total_at+proc[i].AT;
     }
 
 
     
-    
 
 
 
 
-
-
-
-//}
+}
