@@ -4,13 +4,15 @@
 #include<sys/queue.h>
 struct process
 {
-    int pid;
-    float AT;
-    float BT;
-    float WT;
-    float priority;
-    int status;
-   
+    int pid;     //process id
+    float AT;       //arrival time
+    float BT;       //burst time
+    float WT;       // waiting time 
+    float priority; //priority
+    int status;        //status 
+    float TT;            //turnaround time
+    float CC;           //completion time
+
     // status 0 : not available
     // status 1 : ready state
     // ststus 2 : processed
@@ -91,11 +93,11 @@ int main()
     }
     printf("\n\n\n");
 
-    for(int i=0;i<number;i++)
+  /*  for(int i=0;i<number;i++)
     {
         printf("    %d     ",seq[i]);
     }
-    printf("\n\n");
+    printf("\n\n");*/
 
 
     int final_sequence[number];
@@ -110,10 +112,10 @@ int main()
         order[0][i]=seq[i];
     }
 
-    for(int i=0;i<number;i++)
+/*    for(int i=0;i<number;i++)
     {
         printf("    %d     ",order[0][i]);
-    }
+    }*/
 
 int next_index;
 float min=9999.00;
@@ -223,10 +225,56 @@ while(timer < = max_at)
         total_at=total_at+proc[i].AT;
     }
 
+    printf("\n the final scheduled order in shortest job first are as follow \n\n");
 
-    
+    printf("status :--   NOT COMPLETE == NCM \n");
+    printf("status :--   COMPLETE     == CM \n");
+ //   printf("status :--   COMPLETE  == CM \n");
 
+    printf("\n\n");
 
+    printf(" Process      :    ");
+   // int z=number-1;
+    for(int i=0;i<number;i++)
+    {
+        printf("    P%d    ",final_sequence[i]);
+    }
+    printf("\n\n");
+    printf(" waiting time :    ");
+   // int z=number-1;
+    for(int i=0;i<number;i++)
+    {
+        printf("    %d    ",(int)proc[final_sequence[i]].WT);
+    }
+    printf("\n\n");
+    printf(" arrival time :    ");
+   // int z=number-1;
+    for(int i=0;i<number;i++)
+    {
+        printf("    %d    ",(int)proc[final_sequence[i]].AT);
+    }
+    printf("\n\n");
+    printf(" status       :    ");
+   // int z=number-1;
+    for(int i=0;i<number;i++)
+    {
+        if((int)proc[final_sequence[i]].status==2)
+        printf("    CM    ");
+    }
+    printf("\n\n");
 
+/*    printf(" status       :    ");
+   // int z=number-1;
+    for(int i=0;i<number;i++)
+    {
+        if((int)proc[final_sequence[i]].status==2)
+        printf("    CM    ");
+    }*/
+    printf("\n\n");
+
+    float avg_wt;
+    avg_wt=total_wt/number;
+    printf("AVERAGE WAITING TIME  : %f \n\n",avg_wt);
+    printf("\n\n\n");
 
 }
