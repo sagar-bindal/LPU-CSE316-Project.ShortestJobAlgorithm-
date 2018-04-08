@@ -86,7 +86,7 @@ int main()
                 if(proc[i].status==0)
                 {
                     seq[j++]=proc[i].pid;
-//                    proc[i].status=1;
+                    proc[i].status=1;
                 }
             }
         }
@@ -127,6 +127,9 @@ int i=0;
         final_sequence[i]=order[i][0];
            proc[i].status=2;
            timer=timer+proc[i].BT;
+
+            proc[i].CC=(float)timer;
+          
            for(int j=0;j<number;j++);
            {
                 if(proc[j].status==1)
@@ -202,6 +205,17 @@ for(int j=0;j<number;j++)
                 }
                 printf("\n");
             }*/
+
+            for(int i=0;i<number;i++)
+        	{
+        		if(proc[i].status==0)
+        		{
+        			if(timer >= proc[i].AT )
+        			{
+        				proc[i].status=1;
+					}
+				}
+			}
            
     }
 
@@ -254,6 +268,15 @@ while(timer < = max_at)
         printf("    %d    ",(int)proc[final_sequence[i]].AT);
     }
     printf("\n\n");
+    
+    printf(" Complete time:    ");
+   // int z=number-1;
+    for(int i=0;i<number;i++)
+    {
+        printf("    %d    ",(int)proc[final_sequence[i]].CC);
+    }
+    printf("\n\n");
+    
     printf(" status       :    ");
    // int z=number-1;
     for(int i=0;i<number;i++)
@@ -277,4 +300,5 @@ while(timer < = max_at)
     printf("AVERAGE WAITING TIME  : %f \n\n",avg_wt);
     printf("\n\n\n");
 
+            
 }
